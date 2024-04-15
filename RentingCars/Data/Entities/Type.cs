@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static RentingCars.Data.DataConstants.TypeConstants;
 
 
-namespace RentingCars.Data.NewFolder
+namespace RentingCars.Data.Entities
 {
     public class Type
     {
