@@ -10,10 +10,10 @@ namespace RentingCars.Data.Entities
     {
         [Required]
         [StringLength(AppUserFirstNameMaxLength)]
-        public string FirstName { get; set; } 
+        public string? FirstName { get; set; } 
         [Required]
         [StringLength(AppUserLastNameMaxLength)]
-        public string LastName { get; set; } 
+        public string? LastName { get; set; } 
 
     }
 }
