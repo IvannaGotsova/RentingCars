@@ -11,10 +11,10 @@ namespace RentingCars.Data.Entities
         public int Id { get; init; }
         [Required]
         [MaxLength(BrokerPhoneNumberMaxLength)]
-        public string BrokerPhoneNumber { get; set; }
+        public string? BrokerPhoneNumber { get; set; }
         [Required]
-        public string UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public string? UserId { get; set; }
+        public IdentityUser? User { get; set; }
     }
 }
 
