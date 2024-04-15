@@ -21,7 +21,7 @@ namespace RentingCars.Data
         private IdentityUser DemoUser { get; set; } = null!;
         private Entities.Type Family { get; set; } = null!;
         private Entities.Type Standard { get; set; } = null!;
-        private Entities.Type Luxury { get; set; }
+        private Entities.Type Luxury { get; set; } = null!;
         private Car FamilyCar { get; set; } = null!;
         private Car StandardCar { get; set; } = null!;
         private Car LuxuryCar { get; set; } = null!;
