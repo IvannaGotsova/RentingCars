@@ -9,28 +9,28 @@ namespace RentingCars.Data.Entities
         public int Id { get; init; }
         [Required]
         [MaxLength(CarBrandMaxLength)]
-        public string CarBrand { get; set; }
+        public string? CarBrand { get; set; }
         [Required]
         [MaxLength(CarModelMaxLength)]
-        public string CarModel { get; set; }
+        public string? CarModel { get; set; }
         [Required]
         [MaxLength(CarDescriptionMaxLength)]
-        public string CarDescription { get; set; }
+        public string? CarDescription { get; set; }
         [Required]
         [MaxLength(CarAdditionalInformationMaxLength)]
-        public string CarAdditionalInformation { get; set; }
+        public string? CarAdditionalInformation { get; set; }
         [Required]
-        public string CarImageUrl { get; set; }
+        public string? CarImageUrl { get; set; }
         [Required]
         [Range(typeof(decimal), "0.00", "2000.00", ConvertValueInInvariantCulture = true)]
         public decimal CarPricePerDay { get; set; }
         [Required]
         public int TypeId { get; set; }
-        public Type Type { get; set; }
+        public Type? Type { get; set; }
         [Required]
         public int BrokerId { get; set; }
-        public Broker Broker { get; set; }
-        public string RenterId { get; set; }
+        public Broker? Broker { get; set; }
+        public string? RenterId { get; set; }
 
     }
 }
