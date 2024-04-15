@@ -15,10 +15,12 @@ namespace RentingCars
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<RentingCarsDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<RentingCarsDbContext>();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -36,6 +38,7 @@ namespace RentingCars
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
