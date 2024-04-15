@@ -25,6 +25,7 @@ namespace RentingCars.Data
         private Car FamilyCar { get; set; }
         private Car StandardCar { get; set; }
         private Car LuxuryCar { get; set; }
+        private Broker Broker { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder
