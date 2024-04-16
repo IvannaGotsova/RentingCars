@@ -4,10 +4,16 @@
     {
         public class ApplicationUserConstants
         {
+            public const int AppUserUserNameMinLength = 1;
+            public const int AppUserUserNameMaxLength = 100;
             public const int AppUserFirstNameMinLength = 1;
             public const int AppUserFirstNameMaxLength = 100;
             public const int AppUserLastNameMinLength = 1;
             public const int AppUserLastNameMaxLength = 100;
+            public const int AppUserEmailMinLength = 1;
+            public const int AppUserEmailMaxLength = 100;
+            public const int AppUserPasswordMinLength = 1;
+            public const int AppUserPasswordMaxLength = 100;
         }
         public class BrokerConstants
         {
