@@ -19,8 +19,16 @@ namespace RentingCars
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<RentingCarsDbContext>();
+            builder.Services.AddDefaultIdentity<ApplicationUser>
+            (options => {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = true;
+                options.User.RequireUniqueEmail = true;
+            
+            })
+            .AddEntityFrameworkStores<RentingCarsDbContext>();
 
             builder.Services.AddControllersWithViews();
 
