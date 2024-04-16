@@ -12,7 +12,7 @@ namespace RentingCars.Data
         {
             this.Database.Migrate();
         }
-
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
         public DbSet<Broker>? Brokers { get; init; } = null!;
         public DbSet<Car>? Cars { get; init; } = null!;
         public DbSet<Entities.Type>? Types { get; init; } = null!;
@@ -28,11 +28,11 @@ namespace RentingCars.Data
         private Broker Broker { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
-          
+
             builder
                 .Entity<Car>()
                 .HasOne(c => c.Type)
-                .WithMany()
+                .WithMany(t => t.Cars)
                 .HasForeignKey(c => c.TypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -156,7 +156,34 @@ namespace RentingCars.Data
             this.FamilyCar = new Car()
             {
                 Id = 1,
+                CarImageUrl = "/Photos/Picture.jpg",
+                CarBrand = "FamilyBrand",
+                CarModel = "FamilyModel",
+                CarDescription = "Family Car Description ...",
+                CarAdditionalInformation = "Family Car AdditionaInformation ...",
+                CarPricePerDay = 300
+            };
 
+            this.StandardCar = new Car()
+            {
+                Id = 1,
+                CarImageUrl = "/Photos/Picture.jpg",
+                CarBrand = "StandardBrand",
+                CarModel = "StandardModel",
+                CarDescription = "Standard Car Description ...",
+                CarAdditionalInformation = "Standard Car AdditionaInformation ...",
+                CarPricePerDay = 200
+            };
+
+            this.LuxuryCar = new Car()
+            {
+                Id = 1,
+                CarImageUrl = "/Photos/Picture.jpg",
+                CarBrand = "LuxuryBrand",
+                CarModel = "LuxuryModel",
+                CarDescription = "Luxury Car Description ...",
+                CarAdditionalInformation = "Luxury Car AdditionaInformation ...",
+                CarPricePerDay = 500
             };
         }
     }
