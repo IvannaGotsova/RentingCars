@@ -17,8 +17,8 @@ namespace RentingCars.Data
         public DbSet<Car>? Cars { get; init; } = null!;
         public DbSet<Entities.Type>? Types { get; init; } = null!;
 
-        private IdentityUser BrokerUser { get; set; } = null!;
-        private IdentityUser DemoUser { get; set; } = null!;
+        private ApplicationUser BrokerUser { get; set; } = null!;
+        private ApplicationUser DemoUser { get; set; } = null!;
         private Entities.Type Family { get; set; } = null!;
         private Entities.Type Standard { get; set; } = null!;
         private Entities.Type Luxury { get; set; } = null!;
@@ -45,7 +45,7 @@ namespace RentingCars.Data
 
             SeedUsers();
             builder
-                .Entity<IdentityUser>()
+                .Entity<ApplicationUser>()
                 .HasData(this.BrokerUser, this.DemoUser);
 
             SeedBrokers();
@@ -92,27 +92,32 @@ namespace RentingCars.Data
 
         private void SeedUsers()
         {
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
-            this.BrokerUser = new IdentityUser()
+            this.BrokerUser = new ApplicationUser()
             {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
                 UserName = "brokeruser@example.com",
                 NormalizedUserName = "brokeruser@example.com",
                 Email = "brokeruser@example.com",
                 NormalizedEmail = "brokeruser@example.com",
+                FirstName = "Ivan",
+                LastName = "Ivanov"
+
             };
 
             this.BrokerUser.PasswordHash =
                  hasher.HashPassword(this.BrokerUser, "brokeruser123");
 
-            this.DemoUser = new IdentityUser()
+            this.DemoUser = new ApplicationUser()
             {
                 Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                 UserName = "demouser@example.com",
                 NormalizedUserName = "demouser@example.com",
                 Email = "demouser@example.com",
                 NormalizedEmail = "demouser@example.com",
+                FirstName = "Petar",
+                LastName = "Petrov"
             };
 
             this.DemoUser.PasswordHash =
@@ -139,13 +144,13 @@ namespace RentingCars.Data
 
             this.Standard = new Entities.Type()
             {
-                Id = 1,
+                Id = 2,
                 TypeName = "Standard"
             };
 
             this.Luxury = new Entities.Type()
             {
-                Id = 1,
+                Id = 3,
                 TypeName = "Luxury"
             };
 
@@ -161,29 +166,36 @@ namespace RentingCars.Data
                 CarModel = "FamilyModel",
                 CarDescription = "Family Car Description ...",
                 CarAdditionalInformation = "Family Car AdditionaInformation ...",
-                CarPricePerDay = 300
+                CarPricePerDay = 300,
+                TypeId = this.Family.Id,
+                BrokerId = this.Broker.Id,
+                RenterId = this.DemoUser.Id
             };
 
             this.StandardCar = new Car()
             {
-                Id = 1,
+                Id = 2,
                 CarImageUrl = "/Photos/Picture.jpg",
                 CarBrand = "StandardBrand",
                 CarModel = "StandardModel",
                 CarDescription = "Standard Car Description ...",
                 CarAdditionalInformation = "Standard Car AdditionaInformation ...",
-                CarPricePerDay = 200
+                CarPricePerDay = 200,
+                TypeId = this.Standard.Id,
+                BrokerId = this.Broker.Id
             };
 
             this.LuxuryCar = new Car()
             {
-                Id = 1,
+                Id = 3,
                 CarImageUrl = "/Photos/Picture.jpg",
                 CarBrand = "LuxuryBrand",
                 CarModel = "LuxuryModel",
                 CarDescription = "Luxury Car Description ...",
                 CarAdditionalInformation = "Luxury Car AdditionaInformation ...",
-                CarPricePerDay = 500
+                CarPricePerDay = 500,
+                TypeId = this.Luxury.Id,
+                BrokerId = this.Broker.Id
             };
         }
     }
