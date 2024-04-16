@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using RentingCars.Data;
+using RentingCars.Data.Entities;
 
 namespace RentingCars
 {
@@ -18,7 +19,7 @@ namespace RentingCars
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<RentingCarsDbContext>();
 
             builder.Services.AddControllersWithViews();
