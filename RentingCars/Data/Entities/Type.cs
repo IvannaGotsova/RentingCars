@@ -11,6 +11,6 @@ namespace RentingCars.Data.Entities
         [Required]
         [MaxLength(TypeNameMaxLength)]
         public string? TypeName { get; set; }
-        public IEnumerable<Car> Cars { get; set; } = new List<Car>();
+        public IEnumerable<Car> Cars { get; init; } = new List<Car>();
     }
 }
