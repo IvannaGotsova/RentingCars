@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
 using RentingCars.Data;
 using RentingCars.Data.Entities;
 using RentingCars.Services.Brokers;
-using RentingCars.Services.Car;
+using RentingCars.Services.Cars;
 
 namespace RentingCars
 {
