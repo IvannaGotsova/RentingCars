@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentingCars.Data.Models.Home;
 using RentingCars.Models;
-using RentingCars.Services.Car;
+using RentingCars.Services.Cars;
 using System.Diagnostics;
 
 namespace RentingCars.Controllers
