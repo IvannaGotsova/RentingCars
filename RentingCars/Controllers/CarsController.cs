@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentingCars.Data.Models.Car;
+using RentingCars.Data.Models.Home;
+using RentingCars.Services.Car;
 
 namespace RentingCars.Controllers
 {
     public class CarsController : Controller
     {
+
         public IActionResult Index()
         {
             return View();
