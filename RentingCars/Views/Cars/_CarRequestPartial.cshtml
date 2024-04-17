@@ -1,0 +1,51 @@
+﻿@model CarRequestModel
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="CarBrand"></label>
+                <input asp-for="CarBrand" class="form-control" placeholder="Car Brand...">
+                <span asp-validation-for="CarBrand" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarModel"></label>
+                <input asp-for="CarModel" class="form-control" placeholder="Car Model...">
+                <span asp-validation-for="CarModel" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarDescription"></label>
+                <input asp-for="CarDescription" class="form-control" placeholder="Car Description...">
+                <span asp-validation-for="CarDescription" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarAdditionalInformation"></label>
+                <input asp-for="CarAdditionalInformation" class="form-control" placeholder="Car Additional Information...">
+                <span asp-validation-for="CarAdditionalInformation" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarImageUrl"></label>
+                <input asp-for="CarImageUrl" class="form-control" placeholder="Car Image URL...">
+                <span asp-validation-for="CarImageUrl" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CarPricePerDay"></label>
+                <input asp-for="CarPricePerDay" class="form-control">
+                <span asp-validation-for="CarPricePerDay" class="small text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeId"></label>
+                <select asp-for="TypeId" class="form-control">
+                    @foreach (var type in Model.Types)
+                    {
+                        <option value="@type.Id">@type.TypeName</option>
+                    }
+                </select>
+                <span asp-validation-for="TypeId" class="small text-danger"></span>
+            </div>
+            <div class="text-center">
+                <input class="btn btn-primary mt-3" type="submit" value="Save" />
+            </div>
+        </form>
+    </div>
+</div>
