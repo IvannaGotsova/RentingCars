@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using RentingCars.Data.Models.Home;
 using RentingCars.Models;
 using System.Diagnostics;
 
@@ -9,7 +10,7 @@ namespace RentingCars.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new IndexViewModel());
         }
 
         public IActionResult Privacy()
