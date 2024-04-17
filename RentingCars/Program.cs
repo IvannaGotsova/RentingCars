@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 using RentingCars.Data;
 using RentingCars.Data.Entities;
+using RentingCars.Services.Car;
 
 namespace RentingCars
 {
@@ -31,6 +32,8 @@ namespace RentingCars
             .AddEntityFrameworkStores<RentingCarsDbContext>();
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddScoped<ICarService, CarService>();
 
             var app = builder.Build();
 
