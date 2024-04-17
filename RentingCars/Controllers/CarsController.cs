@@ -1,13 +1,25 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentingCars.Common;
 using RentingCars.Data.Models.Car;
 using RentingCars.Data.Models.Home;
-using RentingCars.Services.Car;
+using RentingCars.Services.Brokers;
+using RentingCars.Services.Cars;
+using RentingCars.Services.Models.Cars;
 
 namespace RentingCars.Controllers
 {
     public class CarsController : Controller
     {
+        private readonly ICarService carService;
+        private readonly IBrokerService brokerService;
+
+        public CarsController(ICarService carService, 
+                              IBrokerService brokerService)
+        {
+            this.carService = carService;
+            this.brokerService = brokerService;
+        }
 
         public IActionResult Index()
         {
@@ -33,14 +45,44 @@ namespace RentingCars.Controllers
         [Authorize]
         public IActionResult Add()
         {
-            return View();
+            if (!this.brokerService.ExistById(this.User.Id()))
+            {
+                return RedirectToAction(nameof(BrokersController.Become), "Brokers");
+            }
+            return View(new CarRequestModel
+            {
+                Types = this.carService.AllCarsTypes()
+            });
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Add(AddEditCarRequestModel addCarRequestModel)
+        public IActionResult Add(CarRequestModel carRequestModel)
         {
-            return RedirectToAction(nameof(Details), new { id = "1"});
+            if (!this.brokerService.ExistById(this.User.Id()))
+            {
+                return RedirectToAction(nameof(BrokersController.Become), "Brokers" );
+            }
+
+            if (!this.carService.TypeExists(carRequestModel.TypeId))
+            {
+                this.ModelState.AddModelError(nameof(carRequestModel.TypeId),
+                    "Car type does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                carRequestModel.Types = this.carService.AllCarsTypes();
+
+                return View(carRequestModel);
+            }
+
+            var brokerId = this.brokerService.GetAgentId(this.User.Id());
+
+            var newCarId = this.carService.CreateCar(carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl,carRequestModel.CarPricePerDay, 
+                carRequestModel.TypeId, brokerId);
+
+            return RedirectToAction(nameof(Details), new { id = newCarId});
         }
 
         [Authorize]
