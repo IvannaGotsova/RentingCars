@@ -11,5 +11,11 @@ namespace RentingCars.Services.Cars
         CarRequestServiceModel All(string carType = null, string carSearchTerm = null, CarSorting carSorting = CarSorting.Newest, int currentPage = 1,
             int carsPerPage = 1);
         IEnumerable<string> AllCarsTypesNames();
+
+        IEnumerable<CarServiceModel> AllCarsByBrokerId(int brokerId);
+        IEnumerable<CarServiceModel> AllCarsByUserId(string userId);
+
+        bool CarExists(int id);
+        CarDetailsServiceModel CarDetailsById(int id);
     }
 }

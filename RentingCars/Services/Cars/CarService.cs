@@ -1,5 +1,6 @@
 ﻿using RentingCars.Data;
 using RentingCars.Data.Entities;
+using RentingCars.Data.Models.Broker;
 using RentingCars.Data.Models.Car;
 using RentingCars.Services.Models.Cars;
 using System.Reflection.Metadata.Ecma335;
@@ -139,6 +140,81 @@ namespace RentingCars.Services.Cars
                 .Select(t => t.TypeName)
                 .Distinct()
                 .ToList();
+        }
+
+        public IEnumerable<CarServiceModel> AllCarsByBrokerId(int brokerId)
+        {
+            var cars =
+                this.rentingCarsDbContextdata
+                .Cars
+                .Where(c => c.BrokerId == brokerId)
+                .ToList();
+
+            return ConvertToModel(cars);
+        }
+
+        public IEnumerable<CarServiceModel> AllCarsByUserId(string userId)
+        {
+            var cars =
+                this.rentingCarsDbContextdata
+                .Cars
+                .Where(c => c.RenterId == userId)
+                .ToList();
+
+            return ConvertToModel(cars);
+        }
+
+        private List<CarServiceModel> ConvertToModel(List<Car> cars)
+        {
+            var convertCars = cars
+                .Select(c => new CarServiceModel()
+                {
+                    Id = c.Id,
+                    CarBrand = c.CarBrand,
+                    CarModel = c.CarModel,
+                    CarDescription = c.CarDescription,
+                    CarAdditionalInformation = c.CarAdditionalInformation,
+                    CarImageUrl = c.CarImageUrl,
+                    CarPricePerDay = c.CarPricePerDay,
+                    isRented = c.RenterId != null
+                })
+                .ToList();
+
+            return convertCars;
+        }
+
+        public bool CarExists(int id)
+        {
+            return
+                rentingCarsDbContextdata
+                .Cars
+                .Any(c => c.Id == id);
+        }
+
+        public CarDetailsServiceModel CarDetailsById(int id)
+        {
+            return
+                rentingCarsDbContextdata
+                .Cars
+                .Where(c => c.Id == id)
+                .Select(c => new CarDetailsServiceModel()
+                {
+                    Id = c.Id, 
+                    CarBrand = c.CarBrand,
+                    CarModel = c.CarModel,
+                    CarDescription = c.CarDescription,
+                    CarAdditionalInformation = c.CarAdditionalInformation,
+                    CarImageUrl = c.CarImageUrl,
+                    CarPricePerDay = c.CarPricePerDay,
+                    isRented = c.RenterId != null,
+                    TypeName = c.Type.TypeName,
+                    Broker = new BrokerServiceModel()
+                    {
+                        BrokerPhoneNumber = c.Broker.BrokerPhoneNumber,
+                        BrokerEmail = c.Broker.User.Email 
+                    }
+                })
+                .FirstOrDefault();
         }
     }
 }
