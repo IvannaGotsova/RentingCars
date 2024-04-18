@@ -1,4 +1,4 @@
-﻿@model CarDetailsRequestModel
+﻿@model CarDetailsServiceModel
 
 
 @{
@@ -8,3 +8,55 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+
+<div class="container" style="display:inline">
+    <div class="row">
+        <div class="col-4">
+            <img class="card-img-top" style="width: 20rem;"
+                 src="@Model.CarImageUrl" alt="Car Image">
+        </div>
+        <div class="card col-8 border-0">
+            <p style="font-size:25px;"><u>@Model.CarBrand</u></p>
+            <p style="font-size:25px;"><u>@Model.CarModel</u></p>
+            <p>Description: <b>@Model.CarDescription</b></p>
+            <p>Additional Information: <b>@Model.CarAdditionalInformation</b></p>
+            <p>
+                Price Per Day:
+                <b>@String.Format("{0:f2}", Model.CarPricePerDay) USD</b>
+            </p>
+            <p>Category: <b>@Model.TypeName</b></p>
+            <p><i>(@(Model.isRented ? "Rented" : "Not Rented"))</i></p>
+            <div class="form-inline">
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <a class="btn btn-warning" asp-controller="Cars" asp-action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+                    <a class="ml-2 btn btn-danger" asp-controller="Cars" asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+                    @if (!Model.isRented)
+                    {
+                        <form class="ml-2" asp-controller="Cars"
+                              asp-action="Rent" asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit" value="Rent" />
+                        </form>
+                    }
+                    else
+                    {
+                        <form class="ml-2" asp-controller="Houses" asp-action="Return"
+                              asp-route-id="@Model.Id" method="post">
+                            <input class="btn btn-primary" type="submit" value="Return" />
+                        </form>
+                    }
+                }
+            </div>
+            <p></p>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Agent Info</h5>
+                    <p class="card-text">Email:  @Model.Broker.BrokerEmail</p>
+                    <p class="card-text">Phone Number: @Model.Broker.BrokerPhoneNumber</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
