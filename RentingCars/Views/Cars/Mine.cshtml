@@ -1,4 +1,4 @@
-﻿@model AllCarsRequestModel
+﻿@model IEnumerable<CarServiceModel>
 
 
 @{
@@ -10,3 +10,14 @@
 
 
 
+@if (!Model.Any())
+{
+      <h2 class="text-center">There is no cars yet!</h2>    
+}
+
+<div class="row">
+    @foreach (var car in Model)
+    {
+        <partial name="_CarPartial" model="@car" />
+    }
+</div>
