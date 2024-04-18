@@ -70,5 +70,75 @@ namespace RentingCars.Services.Cars
             return car.Id;
         }
 
+        public CarRequestServiceModel All(string carType = null, string carSearchTerm = null, CarSorting carSorting = CarSorting.Newest, int currentPage = 1, int carsPerPage = 1)
+        {
+            var carsRequest = this.rentingCarsDbContextdata
+                .Cars
+                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(carType))
+            {
+                carsRequest =
+                    this.rentingCarsDbContextdata
+                    .Cars
+                    .Where(c => c.Type.TypeName == carType);
+            }
+
+            if (!string.IsNullOrWhiteSpace(carSearchTerm))
+            {
+                carsRequest =
+                    carsRequest
+                    .Where(cr =>
+                    cr.CarBrand.ToLower().Contains(carSearchTerm.ToLower()) ||
+                    cr.CarModel.ToLower().Contains(carSearchTerm.ToLower()) ||
+                    cr.CarDescription.ToLower().Contains(carSearchTerm.ToLower()) ||
+                    cr.CarAdditionalInformation.ToLower().Contains(carSearchTerm.ToLower()));
+            }
+
+            carsRequest = carSorting switch
+            {
+                CarSorting.Newest => carsRequest
+                .OrderByDescending(cr => cr.Id),
+                CarSorting.Price => carsRequest
+                .OrderBy(cr => cr.CarPricePerDay),
+                CarSorting.NotRentedFirst => carsRequest
+                .OrderBy(cr => cr.RenterId != null)
+                .ThenByDescending(cr => cr.Id),
+            };
+
+            var cars = carsRequest
+                .Skip((currentPage - 1) * carsPerPage)
+                .Take(carsPerPage)
+                .Select(cr => new CarServiceModel
+                {
+                    Id = cr.Id,
+                    CarBrand = cr.CarBrand,
+                    CarModel = cr.CarModel,
+                    CarDescription = cr.CarDescription,
+                    CarAdditionalInformation = cr.CarAdditionalInformation,
+                    CarImageUrl = cr.CarImageUrl,
+                    CarPricePerDay = cr.CarPricePerDay,
+                    isRented = cr.RenterId != null
+                })
+                .ToList();
+
+            var totalCars = carsRequest.Count();
+
+            return new CarRequestServiceModel()
+            {
+                TotalCountCars = totalCars,
+                Cars = cars
+            };
+        }
+
+        public IEnumerable<string> AllCarsTypesNames()
+        {
+            return
+                this.rentingCarsDbContextdata
+                .Types
+                .Select(t => t.TypeName)
+                .Distinct()
+                .ToList();
+        }
     }
 }
