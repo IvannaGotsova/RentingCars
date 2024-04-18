@@ -26,9 +26,24 @@ namespace RentingCars.Controllers
             return View();
         }
 
-        public IActionResult All()
+        public IActionResult All([FromQuery] AllCarsRequestModel allCarsRequestModel)
         {
-            return View(new AllCarsRequestModel());
+            var requestResult =
+                this.carService
+                .All(
+                    allCarsRequestModel.TypeName,
+                    allCarsRequestModel.SearchTerm,
+                    allCarsRequestModel.CarSorting,
+                    allCarsRequestModel.CurrentPage,
+                    AllCarsRequestModel.CarsPerPage);
+
+            allCarsRequestModel.TotalCountCars = requestResult.TotalCountCars;
+            allCarsRequestModel.Cars = requestResult.Cars;
+
+            var carTypes = this.carService.AllCarsTypesNames();
+            allCarsRequestModel.Types = carTypes;
+
+            return View(allCarsRequestModel);
         }
 
         [Authorize]
