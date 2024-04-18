@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RentingCars.Common;
 using RentingCars.Data.Models.Car;
@@ -49,12 +50,34 @@ namespace RentingCars.Controllers
         [Authorize]
         public IActionResult Mine()
         {
-            return View(new AllCarsRequestModel());
+            IEnumerable<CarServiceModel> myCars = null;
+
+            var userId = this.User.Id();
+
+            if (this.brokerService.ExistById(userId))
+            {
+                var currentBrokerId = this.brokerService.GetAgentId(userId);
+
+                myCars = this.carService.AllCarsByBrokerId(currentBrokerId);
+            }
+            else
+            {
+                myCars = this.carService.AllCarsByUserId(userId);
+            }
+
+            return View(myCars);
         }
 
         public IActionResult Details(int id)
         {
-            return View(new CarDetailsRequestModel());
+            if (!this.carService.CarExists(id))
+            {
+                return BadRequest();
+            }
+
+            var carModel = this.carService.CarDetailsById(id);
+
+            return View(carModel);
         }
 
         [Authorize]
