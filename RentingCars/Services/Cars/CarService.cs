@@ -277,5 +277,45 @@ namespace RentingCars.Services.Cars
             this.rentingCarsDbContextdata.Remove(car);
             this.rentingCarsDbContextdata.SaveChanges();
         }
+
+        public bool isRented(int id)
+        {
+            return
+                this.rentingCarsDbContextdata
+                .Cars
+                .Find(id)
+                .RenterId != null;
+        }
+
+        public bool isRentedByUserWithId(int carId, string userId)
+        {
+            var car =
+                this.rentingCarsDbContextdata
+                .Cars
+                .Find(carId);
+
+            if (car == null)
+            {
+                return false;
+            }
+
+            if (car.RenterId != userId)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public void Rent(int carId, string userId)
+        {
+            var car =
+                this.rentingCarsDbContextdata
+                .Cars
+                .Find(carId);
+
+            car.RenterId = userId;
+            this.rentingCarsDbContextdata.SaveChanges();
+        }
     }
 }

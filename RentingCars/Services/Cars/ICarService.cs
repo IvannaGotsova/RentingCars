@@ -25,5 +25,11 @@ namespace RentingCars.Services.Cars
         int CarTypeById(int carId);
 
         void Delete(int carId);
+
+        bool isRented(int id);
+
+        bool isRentedByUserWithId(int carId, string userId);
+
+        void Rent(int carId, string userId);
     }
 }

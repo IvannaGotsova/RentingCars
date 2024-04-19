@@ -224,7 +224,7 @@ namespace RentingCars.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Rent(CarDetailsRequestModel carDetailsRequestModel)
+        public IActionResult Delete(CarDetailsRequestModel carDetailsRequestModel)
         {
             if (!this.carService.CarExists(carDetailsRequestModel.Id))
             {
@@ -240,6 +240,30 @@ namespace RentingCars.Controllers
                 .Delete(carDetailsRequestModel.Id);
 
             return RedirectToAction(nameof(All));
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Rent(int id)
+        {
+            if (!this.carService.CarExists(id))
+            {
+                return BadRequest();
+            }
+
+            if (this.brokerService.ExistById(this.User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            if (this.carService.isRented(id))
+            {
+                return BadRequest();
+            }
+
+            this.carService.Rent(id, this.User.Id());
+
+            return RedirectToAction(nameof(Mine));
         }
 
         [Authorize]
