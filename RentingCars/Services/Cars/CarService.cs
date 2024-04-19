@@ -317,5 +317,16 @@ namespace RentingCars.Services.Cars
             car.RenterId = userId;
             this.rentingCarsDbContextdata.SaveChanges();
         }
+
+        public void Return(int carId)
+        {
+            var car =
+                this.rentingCarsDbContextdata
+                .Cars
+                .Find(carId);
+
+            car.RenterId = null;
+            this.rentingCarsDbContextdata.SaveChanges();
+        }
     }
 }

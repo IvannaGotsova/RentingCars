@@ -270,6 +270,19 @@ namespace RentingCars.Controllers
         [HttpPost]
         public IActionResult Return(int id)
         {
+            if (!this.carService.CarExists(id) ||
+                !this.carService.isRented(id))
+            {
+                return BadRequest();
+            }
+
+            if (!this.carService.isRentedByUserWithId(id, this.User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            this.carService.Return(id);
+
             return RedirectToAction(nameof(Mine));
         }
 

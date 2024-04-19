@@ -31,5 +31,7 @@ namespace RentingCars.Services.Cars
         bool isRentedByUserWithId(int carId, string userId);
 
         void Rent(int carId, string userId);
+
+        void Return(int carId);
     }
 }
