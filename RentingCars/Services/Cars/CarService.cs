@@ -267,5 +267,15 @@ namespace RentingCars.Services.Cars
                 .Cars
                 .Find(carId).TypeId;
         }
+        public void Delete(int carId)
+        {
+            var car =
+                this.rentingCarsDbContextdata
+                .Cars
+                .Find(carId);
+
+            this.rentingCarsDbContextdata.Remove(car);
+            this.rentingCarsDbContextdata.SaveChanges();
+        }
     }
 }

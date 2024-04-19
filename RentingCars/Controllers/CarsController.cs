@@ -195,14 +195,51 @@ namespace RentingCars.Controllers
         [Authorize]
         public IActionResult Delete(int id)
         {
-            return View(new CarDetailsRequestModel());
+            if (!this.carService.CarExists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!this.carService.BrokerWithId(id, this.User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            var car =
+                this.carService
+                .CarDetailsById(id);
+
+            var carModel = new CarDetailsRequestModel()
+            {
+                CarBrand = car.CarBrand,
+                CarModel = car.CarModel,
+                CarDescription = car.CarDescription,
+                CarAdditionalInformation = car.CarAdditionalInformation,
+                CarImageUrl = car.CarImageUrl,
+                CarPricePerDay = car.CarPricePerDay,
+            };
+
+            return View(carModel);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Rent(int id)
+        public IActionResult Rent(CarDetailsRequestModel carDetailsRequestModel)
         {
-            return RedirectToAction(nameof(Mine));
+            if (!this.carService.CarExists(carDetailsRequestModel.Id))
+            {
+                return BadRequest();
+            }
+
+            if (!this.carService.BrokerWithId(carDetailsRequestModel.Id, this.User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            this.carService
+                .Delete(carDetailsRequestModel.Id);
+
+            return RedirectToAction(nameof(All));
         }
 
         [Authorize]

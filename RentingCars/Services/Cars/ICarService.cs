@@ -23,5 +23,7 @@ namespace RentingCars.Services.Cars
         bool BrokerWithId(int carId, string currentUserId);
 
         int CarTypeById(int carId);
+
+        void Delete(int carId);
     }
 }

@@ -1,7 +1,42 @@
-﻿@{
+﻿@model CarDetailsRequestModel
+
+@{
     ViewData["Title"] = "Delete Car";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+
+<form asp-action="Delete">
+    <div class="row">
+        <div class="col-md-4">
+            <img class="card-img-top" src="@Model.CarImageUrl" alt="Car Image">
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="CarBrand" class="control-label"></label>
+                <input asp-for="CarBrand" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CarModel" class="control-label"></label>
+                <input asp-for="CarModel" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CarDescription" class="control-label"></label>
+                <input asp-for="CarDescription" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CarAdditionalInformation" class="control-label"></label>
+                <input asp-for="CarAdditionalInformation" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <label asp-for="CarPricePerDay" class="control-label"></label>
+                <input asp-for="CarPricePerDay" class="form-control" disabled="disabled" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+</form>
