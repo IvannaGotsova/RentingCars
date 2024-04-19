@@ -1,7 +1,14 @@
-﻿@{
+﻿@model CarRequestModel
+
+@{
     ViewData["Title"] = "Edit Car";
 }
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
+<partial name="_CarRequestPartial" model="@Model" />
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

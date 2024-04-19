@@ -1,4 +1,5 @@
-﻿using RentingCars.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using RentingCars.Data;
 using RentingCars.Data.Entities;
 using RentingCars.Data.Models.Broker;
 using RentingCars.Data.Models.Car;
@@ -215,6 +216,56 @@ namespace RentingCars.Services.Cars
                     }
                 })
                 .FirstOrDefault();
+        }
+
+        public void Edit(int carId, string carBrand, string carModel, string carDescription, string carAdditionalInformation, string carImageURL, decimal carPricePerDay, int carTypeId)
+        {
+            var car = this.rentingCarsDbContextdata
+                .Cars
+                .Find(carId);
+
+            car.CarBrand = carBrand;
+            car.CarModel = carModel;
+            car.CarDescription = carDescription;
+            car.CarAdditionalInformation = carAdditionalInformation;
+            car.CarImageUrl = carImageURL;
+            car.CarPricePerDay = carPricePerDay;
+            car.TypeId = carTypeId;
+
+            this.rentingCarsDbContextdata.SaveChanges();
+        }
+
+        public bool BrokerWithId(int carId, string currentUserId)
+        {
+            var car =
+                this.rentingCarsDbContextdata
+                .Cars
+                .Find(carId);
+
+            var broker =
+                this.rentingCarsDbContextdata
+                .Brokers
+                .FirstOrDefault(b => b.Id == car.BrokerId);
+
+            if (broker == null)
+            {
+                return false;
+            }
+
+            if (broker.UserId != currentUserId)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public int CarTypeById(int carId)
+        {
+            return
+                this.rentingCarsDbContextdata
+                .Cars
+                .Find(carId).TypeId;
         }
     }
 }

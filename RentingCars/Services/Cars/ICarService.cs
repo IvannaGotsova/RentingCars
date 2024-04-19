@@ -17,5 +17,11 @@ namespace RentingCars.Services.Cars
 
         bool CarExists(int id);
         CarDetailsServiceModel CarDetailsById(int id);
+
+        void Edit(int carId, string carBrand, string carModel, string carDescription, string carAdditionalInformation, string carImageURL, decimal carPricePerDay, int carTypeId);
+
+        bool BrokerWithId(int carId, string currentUserId);
+
+        int CarTypeById(int carId);
     }
 }

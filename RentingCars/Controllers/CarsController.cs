@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RentingCars.Common;
 using RentingCars.Data.Models.Car;
 using RentingCars.Data.Models.Home;
@@ -126,14 +127,69 @@ namespace RentingCars.Controllers
         [Authorize]
         public IActionResult Edit(int id)
         {
-            return View(new AddEditCarRequestModel());
+            if (!this.carService.CarExists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!this.carService.BrokerWithId(id, this.User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            var car =
+                this.carService
+                .CarDetailsById(id);
+
+            var carTypeId =
+                this.carService
+                .CarTypeById(car.Id);
+
+            var carModel = new CarRequestModel()
+            {
+                CarBrand = car.CarBrand,
+                CarModel = car.CarModel,
+                CarDescription = car.CarDescription,
+                CarAdditionalInformation = car.CarAdditionalInformation,
+                CarImageUrl = car.CarImageUrl,
+                CarPricePerDay = car.CarPricePerDay,
+                TypeId = car.TypeId,
+                Types = this.carService.AllCarsTypes()
+            };
+
+            return View(carModel);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Edit(int id, AddEditCarRequestModel editCarRequestModel)
+        public IActionResult Edit(int id, CarRequestModel carRequestModel)
         {
-            return RedirectToAction(nameof(Details), new { id = "1" });
+            if (!this.carService.CarExists(id))
+            {
+                return BadRequest();
+            }
+
+            if (!this.carService.BrokerWithId(id, this.User.Id()))
+            {
+                return Unauthorized();
+            }
+
+            if (!this.carService.TypeExists(carRequestModel.TypeId))
+            {
+                this.ModelState.AddModelError(nameof(carRequestModel.TypeId), "Type does not exist.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                carRequestModel.Types =
+                    this.carService.AllCarsTypes();
+
+                return View(carRequestModel);
+            }
+
+            this.carService.Edit(id, carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay, carRequestModel.TypeId);
+
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
         [Authorize]
