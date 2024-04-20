@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentingCars.Data;
 using RentingCars.Data.Entities;
@@ -32,7 +33,10 @@ namespace RentingCars
             })
             .AddEntityFrameworkStores<RentingCarsDbContext>();
 
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
 
             builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IBrokerService, BrokerService>();
