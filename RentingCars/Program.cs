@@ -4,6 +4,7 @@ using RentingCars.Data;
 using RentingCars.Data.Entities;
 using RentingCars.Services.Brokers;
 using RentingCars.Services.Cars;
+using RentingCars.Services.Statistics;
 
 namespace RentingCars
 {
@@ -35,6 +36,7 @@ namespace RentingCars
 
             builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IBrokerService, BrokerService>();
+            builder.Services.AddScoped<IStatisticsService, StatisticsService>();
 
             var app = builder.Build();
 
