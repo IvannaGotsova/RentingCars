@@ -1,12 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Framework;
+using RentingCars.Data.Models.Statistics;
+using RentingCars.Services.Statistics;
 
 namespace RentingCars.Controllers.Api
 {
-    public class StatisticsController : Controller
+    [ApiController]
+    [Route("api/statistics")]
+    public class StatisticsController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IStatisticsService statisticsService;
+
+        public StatisticsController(IStatisticsService statisticsService)
         {
-            return View();
+            this.statisticsService = statisticsService;
+        }
+
+        [HttpGet]
+        public StatisticsRequestModel GetStatistics()
+        {
+            return 
+            this.statisticsService.Total();
         }
     }
 }
