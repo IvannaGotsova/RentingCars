@@ -1,4 +1,6 @@
 ﻿@model CarDetailsServiceModel
+@inject ICarService carService
+@inject IBrokerService brokerService
 
 
 @{
@@ -29,18 +31,20 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    <a class="btn btn-warning" asp-controller="Cars" asp-action="Edit" asp-route-id="@Model.Id"
-                       asp-route-information="@Model.GetInformation()">Edit</a>
-                    <a class="ml-2 btn btn-danger" asp-controller="Cars" asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
-                    @if (!Model.isRented)
+                    @if (this.carService.BrokerWithId(Model.Id, this.User.Id()))
+                    {
+                        <a class="btn btn-warning" asp-controller="Cars" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+                        <a class="btn btn-danger" asp-controller="Cars" asp-action="Delete" asp-route-id="@Model.Id"
+                           class="btn btn-danger">Delete</a>
+                    }
+                    @if (!Model.isRented && !this.brokerService.ExistById(this.User.Id()))
                     {
                         <form class="ml-2" asp-controller="Cars"
                               asp-action="Rent" asp-route-id="@Model.Id" method="post">
                             <input class="btn btn-primary" type="submit" value="Rent" />
                         </form>
                     }
-                    else
+                    else if (this.carService.isRentedByUserWithId(Model.Id, this.User.Id()))
                     {
                         <form class="ml-2" asp-controller="Houses" asp-action="Return"
                               asp-route-id="@Model.Id" method="post">
