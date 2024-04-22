@@ -1,14 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject IBrokerService brokerservice
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area=""
-               asp-controller="Brokers" asp-action="Become">Become a Broker</a>
-        </li>
+        @if (!this.brokerservice.ExistById(this.User.Id()))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area=""
+                   asp-controller="Brokers" asp-action="Become">Become a Broker</a>
+            </li>      
+        }
         <li class="nav-item">
             <a> Hello @User!.Identity!.Name</a>
         </li>
