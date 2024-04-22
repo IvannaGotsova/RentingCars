@@ -2,7 +2,7 @@
 
 namespace RentingCars.Services.Models.Cars
 {
-    public class CarServiceModel
+    public class CarServiceModel : ICarModel
     {
         public int Id { get; init; }
         [Display(Name = "Car Brand")]
@@ -17,6 +17,10 @@ namespace RentingCars.Services.Models.Cars
         public string? CarImageUrl { get; init; }
         [Display(Name = "Car Price Per Day")]
         public decimal CarPricePerDay { get; init; }
+        [Required]
+        [Display(Name = "Type of the Car")]
+        public int TypeId { get; init; }
+        public IEnumerable<CarTypeServiceModel> Types { get; set; } = new List<CarTypeServiceModel>();
         [Display(Name = "Is Car Rented")]
         public bool isRented { get; init; }
 
