@@ -69,7 +69,7 @@ namespace RentingCars.Controllers
             return View(myCars);
         }
 
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, string information)
         {
             if (!this.carService.CarExists(id))
             {
@@ -77,6 +77,11 @@ namespace RentingCars.Controllers
             }
 
             var carModel = this.carService.CarDetailsById(id);
+
+            if (information != carModel.GetInformation())
+            {
+                return BadRequest();
+            }
 
             return View(carModel);
         }
@@ -100,7 +105,7 @@ namespace RentingCars.Controllers
         {
             if (!this.brokerService.ExistById(this.User.Id()))
             {
-                return RedirectToAction(nameof(BrokersController.Become), "Brokers" );
+                return RedirectToAction(nameof(BrokersController.Become), "Brokers");
             }
 
             if (!this.carService.TypeExists(carRequestModel.TypeId))
@@ -118,10 +123,10 @@ namespace RentingCars.Controllers
 
             var brokerId = this.brokerService.GetAgentId(this.User.Id());
 
-            var newCarId = this.carService.CreateCar(carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl,carRequestModel.CarPricePerDay, 
+            var newCarId = this.carService.CreateCar(carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay,
                 carRequestModel.TypeId, brokerId);
 
-            return RedirectToAction(nameof(Details), new { id = newCarId});
+            return RedirectToAction(nameof(Details), new { id = newCarId, information = carRequestModel.GetInformation()});
         }
 
         [Authorize]
@@ -189,7 +194,7 @@ namespace RentingCars.Controllers
 
             this.carService.Edit(id, carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay, carRequestModel.TypeId);
 
-            return RedirectToAction(nameof(Details), new { id = id });
+            return RedirectToAction(nameof(Details), new { id = id, information = carRequestModel.GetInformation() });
         }
 
         [Authorize]

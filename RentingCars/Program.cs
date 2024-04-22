@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RentingCars.Data;
 using RentingCars.Data.Entities;
 using RentingCars.Services.Brokers;
@@ -66,7 +67,17 @@ namespace RentingCars
 
             app.UseAuthorization();
 
-            app.MapDefaultControllerRoute(); 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "Car Details",
+                    pattern: "/Cars/Details/{id}/{information}",
+                    defaults: new { Controller = "Cars", Action = "Details"});
+
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
+
             app.MapRazorPages();
 
             app.Run();
