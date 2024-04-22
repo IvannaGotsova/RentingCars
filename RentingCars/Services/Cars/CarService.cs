@@ -39,6 +39,8 @@ namespace RentingCars.Services.Cars
                 {
                     Id = c.Id,
                     CarBrand = c.CarBrand,
+                    CarDescription = c.CarDescription,
+                    CarAdditionalInformation = c.CarAdditionalInformation,
                     CarImageUrl = c.CarImageUrl
                 })
                 .Take(3);
