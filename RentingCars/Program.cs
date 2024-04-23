@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RentingCars.Data;
 using RentingCars.Data.Entities;
+using RentingCars.Services.ApplicationUsers;
 using RentingCars.Services.Brokers;
 using RentingCars.Services.Cars;
 using RentingCars.Services.Statistics;
@@ -42,6 +43,7 @@ namespace RentingCars
             builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IBrokerService, BrokerService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+            builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
             var app = builder.Build();
 
