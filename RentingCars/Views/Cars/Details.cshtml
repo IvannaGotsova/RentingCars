@@ -31,13 +31,15 @@
             <div class="form-inline">
                 @if (this.User.Identity.IsAuthenticated)
                 {
-                    @if (this.carService.BrokerWithId(Model.Id, this.User.Id()))
+                    @if (this.carService.BrokerWithId(Model.Id, this.User.Id())
+                   || this.User.IsAdmin())
                     {
                         <a class="btn btn-warning" asp-controller="Cars" asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
                         <a class="btn btn-danger" asp-controller="Cars" asp-action="Delete" asp-route-id="@Model.Id"
                            class="btn btn-danger">Delete</a>
                     }
-                    @if (!Model.isRented && !this.brokerService.ExistById(this.User.Id()))
+                    @if (!Model.isRented && !this.brokerService.ExistById(this.User.Id()) 
+                    || this.User.IsAdmin())
                     {
                         <form class="ml-2" asp-controller="Cars"
                               asp-action="Rent" asp-route-id="@Model.Id" method="post">

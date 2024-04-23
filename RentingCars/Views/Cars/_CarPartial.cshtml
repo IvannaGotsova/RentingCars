@@ -20,7 +20,8 @@
             asp-route-information="@Model.GetInformation()">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
-                @if (this.carService.BrokerWithId(Model.Id, this.User.Id()))
+                @if (this.carService.BrokerWithId(Model.Id, this.User.Id()) 
+                || this.User.IsAdmin())
                 {
                     <a class="btn btn-warning" asp-controller="Cars" asp-action="Edit" asp-route-id="@Model.Id"
                        asp-route-information="@Model.GetInformation()">Edit</a>
@@ -28,7 +29,8 @@
                        class="btn btn-danger">Delete</a>
                 }
                 <p></p>
-                @if (!Model.isRented && !this.brokerService.ExistById(this.User.Id()))
+                @if (!Model.isRented && !this.brokerService.ExistById(this.User.Id())
+                || this.User.IsAdmin())
                 {
                     <form class="input-group-sm" asp-controller="Cars"
                           asp-action="Rent" asp-route-id="@Model.Id" method="post">
