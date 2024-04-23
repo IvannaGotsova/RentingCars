@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using RentingCars.Common;
 using RentingCars.Data;
 using RentingCars.Data.Entities;
 using RentingCars.Services.ApplicationUsers;
@@ -33,6 +34,7 @@ namespace RentingCars
                 options.User.RequireUniqueEmail = true;
             
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<RentingCarsDbContext>();
 
             builder.Services.AddControllersWithViews(options =>
@@ -81,6 +83,8 @@ namespace RentingCars
             });
 
             app.MapRazorPages();
+
+            app.SeedAdmin();
 
             app.Run();
         }      
