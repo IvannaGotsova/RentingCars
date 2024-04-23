@@ -137,7 +137,8 @@ namespace RentingCars.Controllers
                 return BadRequest();
             }
 
-            if (!this.carService.BrokerWithId(id, this.User.Id()))
+            if (!this.carService.BrokerWithId(id, this.User.Id())
+                && !this.User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -174,7 +175,8 @@ namespace RentingCars.Controllers
                 return BadRequest();
             }
 
-            if (!this.carService.BrokerWithId(id, this.User.Id()))
+            if (!this.carService.BrokerWithId(id, this.User.Id())
+                && !this.User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -205,7 +207,8 @@ namespace RentingCars.Controllers
                 return BadRequest();
             }
 
-            if (!this.carService.BrokerWithId(id, this.User.Id()))
+            if (!this.carService.BrokerWithId(id, this.User.Id())
+                && !this.User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -236,7 +239,8 @@ namespace RentingCars.Controllers
                 return BadRequest();
             }
 
-            if (!this.carService.BrokerWithId(carDetailsRequestModel.Id, this.User.Id()))
+            if (!this.carService.BrokerWithId(carDetailsRequestModel.Id, this.User.Id())
+                && !this.User.IsAdmin())
             {
                 return Unauthorized();
             }
@@ -256,7 +260,8 @@ namespace RentingCars.Controllers
                 return BadRequest();
             }
 
-            if (this.brokerService.ExistById(this.User.Id()))
+            if (this.brokerService.ExistById(this.User.Id())
+                && !this.User.IsAdmin())
             {
                 return Unauthorized();
             }
