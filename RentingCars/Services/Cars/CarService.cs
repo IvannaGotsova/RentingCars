@@ -3,6 +3,7 @@ using RentingCars.Data;
 using RentingCars.Data.Entities;
 using RentingCars.Data.Models.Broker;
 using RentingCars.Data.Models.Car;
+using RentingCars.Services.ApplicationUsers;
 using RentingCars.Services.Models.Cars;
 using System.Reflection.Metadata.Ecma335;
 
@@ -11,10 +12,13 @@ namespace RentingCars.Services.Cars
     public class CarService : ICarService
     {
         private readonly RentingCarsDbContext rentingCarsDbContextdata;
+        private readonly IApplicationUserService applicationUserService;
 
-        public CarService(RentingCarsDbContext rentingCarsDbContextdata)
+        public CarService(RentingCarsDbContext rentingCarsDbContextdata,
+            IApplicationUserService applicationUserService)
         {
             this.rentingCarsDbContextdata = rentingCarsDbContextdata;
+            this.applicationUserService = applicationUserService;
         }
 
         public IEnumerable<CarTypeServiceModel> AllCarsTypes()
@@ -213,6 +217,7 @@ namespace RentingCars.Services.Cars
                     TypeName = c.Type.TypeName,
                     Broker = new BrokerServiceModel()
                     {
+                        FullName = this.applicationUserService.ApplicationUserFullName(c.Broker.UserId),
                         BrokerPhoneNumber = c.Broker.BrokerPhoneNumber,
                         BrokerEmail = c.Broker.User.Email 
                     }
