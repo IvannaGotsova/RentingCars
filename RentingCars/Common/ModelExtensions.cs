@@ -1,4 +1,4 @@
-﻿using RentingCars.Services.Models.Cars;
+﻿using RentingCars.Core.Services.Models.Cars;
 using System.Text.RegularExpressions;
 
 namespace RentingCars.Common

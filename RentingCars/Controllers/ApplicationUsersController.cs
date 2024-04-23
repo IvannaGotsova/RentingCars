@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RentingCars.Data.Entities;
-using RentingCars.Data.Models.ApplicationUserModels;
+using RentingCars.Data.Data.Entities;
+using RentingCars.Data.Data.Models.ApplicationUserModels;
 
 
 namespace RentingCars.Controllers

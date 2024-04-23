@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using RentingCars.Common;
-using RentingCars.Data.Models.Car;
-using RentingCars.Data.Models.Home;
-using RentingCars.Services.Brokers;
-using RentingCars.Services.Cars;
-using RentingCars.Services.Models.Cars;
+using RentingCars.Data.Data.Models.Car;
+using RentingCars.Data.Data.Models.Home;
+using RentingCars.Core.Services.Brokers;
+using RentingCars.Core.Services.Cars;
+using RentingCars.Core.Services.Models.Cars;
 
 namespace RentingCars.Controllers
 {

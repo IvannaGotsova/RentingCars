@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Framework;
-using RentingCars.Data.Models.Statistics;
-using RentingCars.Services.Statistics;
+using RentingCars.Data.Data.Models.Statistics;
+using RentingCars.Core.Services.Statistics;
 
 namespace RentingCars.Controllers.Api
 {

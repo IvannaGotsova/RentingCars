@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RentingCars.Common;
-using RentingCars.Data;
-using RentingCars.Data.Entities;
-using RentingCars.Services.ApplicationUsers;
-using RentingCars.Services.Brokers;
-using RentingCars.Services.Cars;
-using RentingCars.Services.Statistics;
+using RentingCars.Data.Data;
+using RentingCars.Data.Data.Entities;
+using RentingCars.Core.Services.Brokers;
+using RentingCars.Core.Services.Cars;
+using RentingCars.Core.Services.Statistics;
+using RentingCars.Core.Services.ApplicationUsers;
 
 namespace RentingCars
 {
@@ -20,7 +20,7 @@ namespace RentingCars
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<RentingCarsDbContext>(options =>
+            IServiceCollection serviceCollection = builder.Services.AddDbContext<RentingCarsDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();

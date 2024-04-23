@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static RentingCars.Common.ClaimsPrincipalExtensions;
-using RentingCars.Data.Models.Broker;
-using RentingCars.Services.Brokers;
+using RentingCars.Data.Data.Models.Broker;
+using RentingCars.Core.Services.Brokers;
 
 namespace RentingCars.Controllers
 {

@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using RentingCars.Data.Entities;
+using RentingCars.Data.Data.Entities;
 
 namespace RentingCars.Areas.Identity.Pages.Account
 {

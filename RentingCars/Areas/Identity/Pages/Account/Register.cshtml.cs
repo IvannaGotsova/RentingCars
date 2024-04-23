@@ -18,8 +18,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using RentingCars.Data.Entities;
-using static RentingCars.Data.DataConstants.ApplicationUserConstants;
+using RentingCars.Data.Data.Entities;
+using static RentingCars.Data.Data.DataConstants.ApplicationUserConstants;
 
 namespace RentingCars.Areas.Identity.Pages.Account
 {

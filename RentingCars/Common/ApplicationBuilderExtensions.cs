@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RentingCars.Data.Entities;
+using RentingCars.Data.Data.Entities;
 
 namespace RentingCars.Common
 {
