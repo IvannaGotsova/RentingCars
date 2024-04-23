@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RentingCars.Data.Entities;
-using RentingCars;
 
 namespace RentingCars.Data
 {
@@ -18,7 +17,6 @@ namespace RentingCars.Data
         public DbSet<Car>? Cars { get; init; } = null!;
         public DbSet<Entities.Type>? Types { get; init; } = null!;
 
-        private ApplicationUser AdminUser { get; set; } = null!;
         private ApplicationUser BrokerUser { get; set; } = null!;
         private ApplicationUser DemoUser { get; set; } = null!;
         private Entities.Type Family { get; set; } = null!;
@@ -27,7 +25,6 @@ namespace RentingCars.Data
         private Car FamilyCar { get; set; } = null!;
         private Car StandardCar { get; set; } = null!;
         private Car LuxuryCar { get; set; } = null!;
-        private Broker AdminBroker { get; set; } = null!;
         private Broker Broker { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -49,12 +46,12 @@ namespace RentingCars.Data
             SeedUsers();
             builder
                 .Entity<ApplicationUser>()
-                .HasData(this.BrokerUser, this.DemoUser, this.AdminUser);
+                .HasData(this.BrokerUser, this.DemoUser);
 
             SeedBrokers();
             builder
                 .Entity<Broker>()
-                .HasData(this.Broker, this.AdminBroker);
+                .HasData(this.Broker);
 
             SeedTypes();
             builder
@@ -125,20 +122,6 @@ namespace RentingCars.Data
 
             this.DemoUser.PasswordHash =
             hasher.HashPassword(this.DemoUser, "demouser123");
-
-            this.AdminUser = new ApplicationUser()
-            {
-                Id = "bcb4f072-ecca-43c9-ab26-c060c6f364e4",
-                Email = "admin@mail.com",
-                NormalizedEmail = "admin@mail.com",
-                UserName = "admin@mail.com",
-                NormalizedUserName = "admin@mail.com",
-                FirstName = "Admin",
-                LastName = "Admin"
-            };
-
-            this.AdminUser.PasswordHash =
-                 hasher.HashPassword(this.BrokerUser, "admin123");
         }
 
         private void SeedBrokers()
@@ -148,13 +131,6 @@ namespace RentingCars.Data
                 Id = 1,
                 BrokerPhoneNumber = "+0000000000",
                 UserId = this.BrokerUser.Id
-            };
-
-            this.AdminBroker = new Broker()
-            {
-                Id = 2,
-                BrokerPhoneNumber = "+0000000000",
-                UserId = this.AdminUser.Id
             };
         }
 
