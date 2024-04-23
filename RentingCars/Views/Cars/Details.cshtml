@@ -57,6 +57,10 @@
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title">Agent Info</h5>
+                    @if (Model.Broker.FullName != null)
+                    {
+                        <p class="card-text">Full Name: @Model.Broker.FullName</p>
+                    }
                     <p class="card-text">Email:  @Model.Broker.BrokerEmail</p>
                     <p class="card-text">Phone Number: @Model.Broker.BrokerPhoneNumber</p>
                 </div>
