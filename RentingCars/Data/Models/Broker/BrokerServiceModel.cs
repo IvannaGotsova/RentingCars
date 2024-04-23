@@ -7,5 +7,6 @@ namespace RentingCars.Data.Models.Broker
     {
         public string? BrokerPhoneNumber { get; set; }
         public string? BrokerEmail { get; set; }
+        public string ? FullName { get; init; }
     }
 }
