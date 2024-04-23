@@ -2,6 +2,7 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 @inject IBrokerService brokerservice
+@inject IApplicationUserService applicationuserService
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
@@ -14,7 +15,14 @@
             </li>      
         }
         <li class="nav-item">
-            <a> Hello @User!.Identity!.Name</a>
+            @if (applicationuserService.ApplicationUserFullName(this.User.Id()) is var fullname && fullname != null)
+            {
+                <a class="nav-link text-dark">Hello, @fullname</a>
+            }
+            else
+            {
+                <a class="nav-link text-dark"> Hello @User!.Identity!.Name</a>
+            }
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="" asp-controller="ApplicationUsers" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)">
