@@ -8,6 +8,7 @@ using RentingCars.Data.Data.Models.Home;
 using RentingCars.Core.Services.Brokers;
 using RentingCars.Core.Services.Cars;
 using RentingCars.Core.Services.Models.Cars;
+using AutoMapper;
 
 namespace RentingCars.Controllers
 {
@@ -15,12 +16,15 @@ namespace RentingCars.Controllers
     {
         private readonly ICarService carService;
         private readonly IBrokerService brokerService;
+        private readonly IMapper mapper;
 
         public CarsController(ICarService carService, 
-                              IBrokerService brokerService)
+                              IBrokerService brokerService,
+                              IMapper mapper)
         {
             this.carService = carService;
             this.brokerService = brokerService;
+            this.mapper = mapper;
         }
 
         public IActionResult Index()

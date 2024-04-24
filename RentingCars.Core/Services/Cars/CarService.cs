@@ -6,6 +6,7 @@ using RentingCars.Core.Services.ApplicationUsers;
 using RentingCars.Core.Services.Models.Cars;
 using RentingCars.Core.Services.Cars;
 using RentingCars.Data.Data.Models.Car;
+using AutoMapper;
 
 
 namespace RentingCars.Core.Services.Cars
@@ -14,12 +15,15 @@ namespace RentingCars.Core.Services.Cars
     {
         private readonly RentingCarsDbContext rentingCarsDbContextdata;
         private readonly IApplicationUserService applicationUserService;
+        private readonly IMapper mapper;
 
         public CarService(RentingCarsDbContext rentingCarsDbContextdata,
-            IApplicationUserService applicationUserService)
+            IApplicationUserService applicationUserService, 
+            IMapper mapper)
         {
             this.rentingCarsDbContextdata = rentingCarsDbContextdata;
             this.applicationUserService = applicationUserService;
+            this.mapper = mapper;
         }
 
         public IEnumerable<CarTypeServiceModel> AllCarsTypes()

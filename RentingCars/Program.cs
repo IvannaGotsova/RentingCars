@@ -9,6 +9,7 @@ using RentingCars.Core.Services.Brokers;
 using RentingCars.Core.Services.Cars;
 using RentingCars.Core.Services.Statistics;
 using RentingCars.Core.Services.ApplicationUsers;
+using RentingCars.Controllers;
 
 namespace RentingCars
 {
@@ -46,6 +47,10 @@ namespace RentingCars
             builder.Services.AddScoped<IBrokerService, BrokerService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
+
+            builder.Services.AddAutoMapper(
+                typeof(ICarService).Assembly,
+                typeof(HomeController).Assembly);
 
             var app = builder.Build();
 
