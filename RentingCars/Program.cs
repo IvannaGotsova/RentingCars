@@ -85,7 +85,7 @@ namespace RentingCars
                 endpoints.MapControllerRoute(
                     name: "Car Details",
                     pattern: "/Cars/Details/{id}/{information}",
-                    defaults: new { Controller = "Cars", Action = "Details"});
+                    defaults: new { Controller = "Cars", Action = "Details"});                       
 
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
