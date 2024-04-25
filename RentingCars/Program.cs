@@ -81,7 +81,7 @@ namespace RentingCars
             {
                 endpoints.MapControllerRoute(
                     name: "Areas",
-                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{area:exists}/{controller=Home}/{action}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "Car Details",
                     pattern: "/Cars/Details/{id}/{information}",

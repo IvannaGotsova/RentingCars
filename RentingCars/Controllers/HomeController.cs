@@ -17,6 +17,11 @@ namespace RentingCars.Controllers
 
         public IActionResult Index()
         {
+            if (this.User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+
             var cars = this.carService.LastThreeCars();
             return View(cars);
         }
