@@ -10,6 +10,7 @@ using RentingCars.Core.Services.Cars;
 using RentingCars.Core.Services.Statistics;
 using RentingCars.Core.Services.ApplicationUsers;
 using RentingCars.Controllers;
+using Microsoft.AspNetCore.Builder;
 
 namespace RentingCars
 {
@@ -78,6 +79,9 @@ namespace RentingCars
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "Areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "Car Details",
                     pattern: "/Cars/Details/{id}/{information}",
