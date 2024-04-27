@@ -1,11 +1,13 @@
-﻿namespace RentingCars.Areas.Admin.Models.Cars
+﻿using RentingCars.Data.Data.Models.Car;
+
+namespace RentingCars.Areas.Admin.Models.Cars
 {
     public class CarsViewModel
     {
-        public IEnumerable<CarsViewModel> AddedCars { get; set; }
-        = new List<CarsViewModel>();
+        public IEnumerable<CarServiceModel> AddedCars { get; set; }
+        = new List<CarServiceModel>();
 
-        public IEnumerable<CarsViewModel> RentedCars { get; set; }
-        = new List<CarsViewModel>();
+        public IEnumerable<CarServiceModel> RentedCars { get; set; }
+        = new List<CarServiceModel>();
     }
 }
