@@ -27,10 +27,10 @@ namespace RentingCars.Core.Services.Rents
 
         public IEnumerable<RentServiceModel> AllRents()
         {
-            return
+            var sss = 
                 this.rentingCarsDbContextData
                 .Cars
-                .Include(c => c.Broker)
+                .Include(c => c.Broker.User)
                 .Include(c => c.Renter)
                 .Where(c => c.RenterId != null)
                 .Select(c => new RentServiceModel
@@ -45,6 +45,8 @@ namespace RentingCars.Core.Services.Rents
                     RenterFullName = c.Renter.FirstName + " " + c.Renter.LastName,
                 })
                 .ToList();
+
+            return sss;
         }
     }
 }
