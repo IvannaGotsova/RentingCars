@@ -11,6 +11,7 @@ using RentingCars.Core.Services.Statistics;
 using RentingCars.Core.Services.ApplicationUsers;
 using RentingCars.Controllers;
 using Microsoft.AspNetCore.Builder;
+using RentingCars.Core.Services.Rents;
 
 namespace RentingCars
 {
@@ -47,6 +48,7 @@ namespace RentingCars
             builder.Services.AddScoped<ICarService, CarService>();
             builder.Services.AddScoped<IBrokerService, BrokerService>();
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
+            builder.Services.AddScoped<IRentService, RentService>();
             builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
 
             builder.Services.AddAutoMapper(
