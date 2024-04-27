@@ -10,7 +10,7 @@
 
         void Create(string userId, string phoneNumber);
 
-        int GetAgentId(string usetId); 
+        int GetBrokerId(string usetId); 
 
     }
 }

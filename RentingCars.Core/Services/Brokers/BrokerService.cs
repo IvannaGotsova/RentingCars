@@ -32,7 +32,7 @@ namespace RentingCars.Core.Services.Brokers
                 .Any(b => b.UserId == userId);
         }
 
-        public int GetAgentId(string usetId)
+        public int GetBrokerId(string usetId)
         {
             return 
                 this.rentingCarsDbContext
