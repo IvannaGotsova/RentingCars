@@ -61,13 +61,18 @@ namespace RentingCars.Controllers
 
             if (this.brokerService.ExistById(userId))
             {
-                var currentBrokerId = this.brokerService.GetAgentId(userId);
+                var currentBrokerId = this.brokerService.GetBrokerId(userId);
 
                 myCars = this.carService.AllCarsByBrokerId(currentBrokerId);
             }
             else
             {
                 myCars = this.carService.AllCarsByUserId(userId);
+            }
+
+            if (this.User.IsInRole("Administrator"))
+            {
+                return RedirectToAction("Mine", "Cars", new { area = "Admin"});
             }
 
             return View(myCars);
@@ -125,7 +130,7 @@ namespace RentingCars.Controllers
                 return View(carRequestModel);
             }
 
-            var brokerId = this.brokerService.GetAgentId(this.User.Id());
+            var brokerId = this.brokerService.GetBrokerId(this.User.Id());
 
             var newCarId = this.carService.CreateCar(carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay,
                 carRequestModel.TypeId, brokerId);
