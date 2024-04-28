@@ -17,7 +17,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
+using RentingCars.Areas.Admin;
 using RentingCars.Data.Data.Entities;
 using static RentingCars.Data.Data.DataConstants.ApplicationUserConstants;
 
@@ -28,13 +30,16 @@ namespace RentingCars.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IMemoryCache memoryCache;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IMemoryCache memoryCache)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this.memoryCache = memoryCache;
 
         }
 
@@ -122,6 +127,9 @@ namespace RentingCars.Areas.Identity.Pages.Account
                 {
 
                 await this._signInManager.SignInAsync(user, isPersistent: false);
+
+                    this.memoryCache.Remove(AdminConstants.UsersCacheKey);
+
                 return LocalRedirect("~/Login");
                     
                 }
