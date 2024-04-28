@@ -9,6 +9,8 @@ using RentingCars.Core.Services.Brokers;
 using RentingCars.Core.Services.Cars;
 using RentingCars.Core.Services.Models.Cars;
 using AutoMapper;
+using Microsoft.Extensions.Caching.Memory;
+using static RentingCars.Areas.Admin.AdminConstants;
 
 namespace RentingCars.Controllers
 {
@@ -17,14 +19,17 @@ namespace RentingCars.Controllers
         private readonly ICarService carService;
         private readonly IBrokerService brokerService;
         private readonly IMapper mapper;
+        private readonly IMemoryCache memoryCache;
 
         public CarsController(ICarService carService, 
                               IBrokerService brokerService,
-                              IMapper mapper)
+                              IMapper mapper,
+                              IMemoryCache memoryCache)
         {
             this.carService = carService;
             this.brokerService = brokerService;
             this.mapper = mapper;
+            this.memoryCache = memoryCache;
         }
 
         public IActionResult Index()
@@ -282,6 +287,8 @@ namespace RentingCars.Controllers
 
             this.carService.Rent(id, this.User.Id());
 
+            this.memoryCache.Remove("RentsCacheKey");
+
             return RedirectToAction(nameof(Mine));
         }
 
@@ -301,6 +308,8 @@ namespace RentingCars.Controllers
             }
 
             this.carService.Return(id);
+
+            this.memoryCache.Remove("RentsCacheKey");
 
             return RedirectToAction(nameof(Mine));
         }
