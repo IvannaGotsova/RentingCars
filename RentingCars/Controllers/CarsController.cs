@@ -140,6 +140,8 @@ namespace RentingCars.Controllers
             var newCarId = this.carService.CreateCar(carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay,
                 carRequestModel.TypeId, brokerId);
 
+            TempData["message"] = "You have successfully added a car!";
+
             return RedirectToAction(nameof(Details), new { id = newCarId, information = carRequestModel.GetInformation()});
         }
 
