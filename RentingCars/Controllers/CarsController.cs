@@ -212,6 +212,8 @@ namespace RentingCars.Controllers
 
             this.carService.Edit(id, carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay, carRequestModel.TypeId);
 
+            TempData["message"] = "You have successfully edited a car!";
+
             return RedirectToAction(nameof(Details), new { id = id, information = carRequestModel.GetInformation() });
         }
 
