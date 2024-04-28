@@ -58,6 +58,8 @@ namespace RentingCars.Controllers
 
             this.brokerService.Create(userId, becomeBrokerRequestModel.BrokerPhoneNumber);
 
+            TempData["message"] = "You have successfully become a broker!";
+
             return RedirectToAction(nameof(CarsController.All), "Cars");
         }
     }
