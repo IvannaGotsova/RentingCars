@@ -8,10 +8,23 @@ namespace RentingCars.Data.Data
 {
     public class RentingCarsDbContext : IdentityDbContext<ApplicationUser>
     {
-        public RentingCarsDbContext(DbContextOptions<RentingCarsDbContext> options)
+        private bool seedDb;
+
+        public RentingCarsDbContext(DbContextOptions<RentingCarsDbContext> options, 
+            bool seedDb = true )
             : base(options)
         {
-            this.Database.Migrate();
+            if (this.Database.IsRelational())
+            {
+                this.Database.Migrate();
+            }
+            else
+            {
+                this.Database.EnsureCreated();
+                this.seedDb = seedDb;
+            }
+
+            this.seedDb = seedDb;
         }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
         public DbSet<Broker>? Brokers { get; init; } = null!;
@@ -46,25 +59,28 @@ namespace RentingCars.Data.Data
                 .HasForeignKey(c => c.BrokerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            SeedUsers();
-            builder
-                .Entity<ApplicationUser>()
-                .HasData(this.BrokerUser, this.DemoUser, this.AdminUser);
+            if (this.seedDb)
+            {
+                SeedUsers();
+                builder
+                    .Entity<ApplicationUser>()
+                    .HasData(this.BrokerUser, this.DemoUser, this.AdminUser);
 
-            SeedBrokers();
-            builder
-                .Entity<Broker>()
-                .HasData(this.Broker, this.AdminBroker);
+                SeedBrokers();
+                builder
+                    .Entity<Broker>()
+                    .HasData(this.Broker, this.AdminBroker);
 
-            SeedTypes();
-            builder
-                .Entity<Entities.Type>()
-                .HasData(this.Family, this.Standard, this.Luxury);
+                SeedTypes();
+                builder
+                    .Entity<Entities.Type>()
+                    .HasData(this.Family, this.Standard, this.Luxury);
 
-            SeedCars();
-            builder
-                .Entity<Car>()
-                .HasData(this.FamilyCar, this.StandardCar, this.LuxuryCar);
+                SeedCars();
+                builder
+                    .Entity<Car>()
+                    .HasData(this.FamilyCar, this.StandardCar, this.LuxuryCar);
+            }
 
             builder
                 .Entity<ApplicationUser>()
