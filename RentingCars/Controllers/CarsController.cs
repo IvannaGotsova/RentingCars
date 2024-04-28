@@ -266,6 +266,8 @@ namespace RentingCars.Controllers
             this.carService
                 .Delete(carDetailsRequestModel.Id);
 
+            TempData["message"] = "You have successfully deleted a car!";
+
             return RedirectToAction(nameof(All));
         }
 
