@@ -319,6 +319,8 @@ namespace RentingCars.Controllers
 
             this.memoryCache.Remove("RentsCacheKey");
 
+            TempData["message"] = "You have successfully return a car!";
+
             return RedirectToAction(nameof(Mine));
         }
 
