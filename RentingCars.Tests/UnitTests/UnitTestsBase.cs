@@ -46,7 +46,8 @@ namespace RentingCars.Tests.UnitTests
                     Email = "broker@broker.com",
                     FirstName = "Broker",
                     LastName = "Broker"
-                }
+                },
+               
             };
             this.RentingCarsDbContextData.Brokers.Add(this.Broker);
 
@@ -62,6 +63,7 @@ namespace RentingCars.Tests.UnitTests
                 Broker = this.Broker,
                 Renter = this.Renter
             };
+            this.RentingCarsDbContextData.Add(this.Car);
 
             var notRentedCar = new Car()
             {
@@ -75,6 +77,9 @@ namespace RentingCars.Tests.UnitTests
                 Broker = this.Broker,
                 Renter = this.Renter
             };
+            this.RentingCarsDbContextData.Add(notRentedCar);
+            this.RentingCarsDbContextData.SaveChanges();
+
         }
 
         [OneTimeTearDown]
