@@ -59,29 +59,7 @@ namespace RentingCars.Data.Data
                 .HasForeignKey(c => c.BrokerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            if (this.seedDb)
-            {
-                SeedUsers();
-                builder
-                    .Entity<ApplicationUser>()
-                    .HasData(this.BrokerUser, this.DemoUser, this.AdminUser);
-
-                SeedBrokers();
-                builder
-                    .Entity<Broker>()
-                    .HasData(this.Broker, this.AdminBroker);
-
-                SeedTypes();
-                builder
-                    .Entity<Entities.Type>()
-                    .HasData(this.Family, this.Standard, this.Luxury);
-
-                SeedCars();
-                builder
-                    .Entity<Car>()
-                    .HasData(this.FamilyCar, this.StandardCar, this.LuxuryCar);
-            }
-
+           
             builder
                 .Entity<ApplicationUser>()
                 .Property(u => u.UserName)
@@ -105,6 +83,30 @@ namespace RentingCars.Data.Data
                .Property(u => u.LastName)
                .HasMaxLength(60)
                .IsRequired();
+
+            if (this.seedDb)
+            {
+                SeedUsers();
+                builder
+                    .Entity<ApplicationUser>()
+                    .HasData(this.BrokerUser, this.DemoUser, this.AdminUser);
+
+                SeedBrokers();
+                builder
+                    .Entity<Broker>()
+                    .HasData(this.Broker, this.AdminBroker);
+
+                SeedTypes();
+                builder
+                    .Entity<Entities.Type>()
+                    .HasData(this.Family, this.Standard, this.Luxury);
+
+                SeedCars();
+                builder
+                    .Entity<Car>()
+                    .HasData(this.FamilyCar, this.StandardCar, this.LuxuryCar);
+            }
+
 
             base.OnModelCreating(builder);
         }
