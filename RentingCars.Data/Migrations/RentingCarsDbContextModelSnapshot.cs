@@ -17,7 +17,7 @@ namespace RentingCars.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.18")
+                .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -159,7 +159,7 @@ namespace RentingCars.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RentingCars.Data.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("RentingCars.Data.Data.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -240,7 +240,7 @@ namespace RentingCars.Data.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f17b13ca-0dec-4901-ac4c-a4cfa373427a",
+                            ConcurrencyStamp = "385911f7-c92d-457a-ae3e-403ee273b228",
                             Email = "brokeruser@example.com",
                             EmailConfirmed = false,
                             FirstName = "Ivan",
@@ -248,9 +248,9 @@ namespace RentingCars.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "brokeruser@example.com",
                             NormalizedUserName = "brokeruser@example.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAqXX+mDKZeLhEwEH4QlbIaiONKNoVskhkSDZeSAflhGB5Sy0jJOtRm0tnDz7ef8IA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHb18rrmgslcDFn158tDYyOyoLC5P4LRiQmQGXPWm2PrnY1fEN784Km63xfwKtvxYg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d3699943-3990-4ce8-8510-33c2d775b0e0",
+                            SecurityStamp = "571cd59e-afc9-4e97-8f78-f46b75864083",
                             TwoFactorEnabled = false,
                             UserName = "brokeruser@example.com"
                         },
@@ -258,7 +258,7 @@ namespace RentingCars.Data.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3b32067d-2520-45ce-8b15-80e6ceadb493",
+                            ConcurrencyStamp = "bc21fb54-5bfd-46ca-8ad7-4d365a1f85c1",
                             Email = "demouser@example.com",
                             EmailConfirmed = false,
                             FirstName = "Petar",
@@ -266,9 +266,9 @@ namespace RentingCars.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "demouser@example.com",
                             NormalizedUserName = "demouser@example.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKsvTkSZS90GL48Gwud5jfWl7Ul4q3+oqW4sIuXjr1J2SdsyIQ8bg0UTyOEMShoXyQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC8GWWAA5Pwwg7nUjGU3xyM62K3LjuzmWsfKcETYUmL5VqBCCoA/7PUGZzXjHF6pcw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b1213734-f38b-4d08-9432-5a550a6f805a",
+                            SecurityStamp = "348a508e-5dd0-4a84-8d65-a274bd3a1bf2",
                             TwoFactorEnabled = false,
                             UserName = "demouser@example.com"
                         },
@@ -276,7 +276,7 @@ namespace RentingCars.Data.Migrations
                         {
                             Id = "bcb4f072-ecca-43c9-ab26-c060c6f364e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3683e527-d75a-41d4-9b8f-574e5272e992",
+                            ConcurrencyStamp = "7ce38047-1014-4c5d-913d-35334ba2501e",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -284,15 +284,15 @@ namespace RentingCars.Data.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@mail.com",
                             NormalizedUserName = "admin@mail.com",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDzJLZqAetVm7Bfa1Y2aRl5HTSsINmcUdG2sVmjeNsLYv83OFYT943aJ+gwdL8EuhQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBQaFqWD11wSljmBh7KYgNe+ZIRlh3/5m50rxAomBaS5DCvyGcojn0but2vMTFBmkA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a81eaebd-d4a1-4bb2-9476-9429df819cb3",
+                            SecurityStamp = "30e49d41-61dc-4ad1-be0b-b9d4375f6e4c",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com"
                         });
                 });
 
-            modelBuilder.Entity("RentingCars.Data.Entities.Broker", b =>
+            modelBuilder.Entity("RentingCars.Data.Data.Entities.Broker", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -330,7 +330,7 @@ namespace RentingCars.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RentingCars.Data.Entities.Car", b =>
+            modelBuilder.Entity("RentingCars.Data.Data.Entities.Car", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -369,7 +369,7 @@ namespace RentingCars.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("RenterId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("TypeId")
                         .HasColumnType("int");
@@ -377,6 +377,8 @@ namespace RentingCars.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BrokerId");
+
+                    b.HasIndex("RenterId");
 
                     b.HasIndex("TypeId");
 
@@ -422,7 +424,7 @@ namespace RentingCars.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("RentingCars.Data.Entities.Type", b =>
+            modelBuilder.Entity("RentingCars.Data.Data.Entities.Type", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -468,7 +470,7 @@ namespace RentingCars.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("RentingCars.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RentingCars.Data.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -477,7 +479,7 @@ namespace RentingCars.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("RentingCars.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RentingCars.Data.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -492,7 +494,7 @@ namespace RentingCars.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RentingCars.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RentingCars.Data.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -501,16 +503,16 @@ namespace RentingCars.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("RentingCars.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RentingCars.Data.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RentingCars.Data.Entities.Broker", b =>
+            modelBuilder.Entity("RentingCars.Data.Data.Entities.Broker", b =>
                 {
-                    b.HasOne("RentingCars.Data.Entities.ApplicationUser", "User")
+                    b.HasOne("RentingCars.Data.Data.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -519,15 +521,19 @@ namespace RentingCars.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RentingCars.Data.Entities.Car", b =>
+            modelBuilder.Entity("RentingCars.Data.Data.Entities.Car", b =>
                 {
-                    b.HasOne("RentingCars.Data.Entities.Broker", "Broker")
+                    b.HasOne("RentingCars.Data.Data.Entities.Broker", "Broker")
                         .WithMany()
                         .HasForeignKey("BrokerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("RentingCars.Data.Entities.Type", "Type")
+                    b.HasOne("RentingCars.Data.Data.Entities.ApplicationUser", "Renter")
+                        .WithMany()
+                        .HasForeignKey("RenterId");
+
+                    b.HasOne("RentingCars.Data.Data.Entities.Type", "Type")
                         .WithMany("Cars")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -535,10 +541,12 @@ namespace RentingCars.Data.Migrations
 
                     b.Navigation("Broker");
 
+                    b.Navigation("Renter");
+
                     b.Navigation("Type");
                 });
 
-            modelBuilder.Entity("RentingCars.Data.Entities.Type", b =>
+            modelBuilder.Entity("RentingCars.Data.Data.Entities.Type", b =>
                 {
                     b.Navigation("Cars");
                 });
