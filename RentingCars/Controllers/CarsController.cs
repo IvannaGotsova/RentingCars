@@ -138,7 +138,7 @@ namespace RentingCars.Controllers
             var brokerId = this.brokerService.GetBrokerId(this.User.Id());
 
             var newCarId = this.carService.CreateCar(carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay,
-                carRequestModel.TypeId, brokerId);
+                carRequestModel.TypeId, brokerId, carRequestModel.CarDate);
 
             TempData["message"] = "You have successfully added a car!";
 
@@ -176,7 +176,8 @@ namespace RentingCars.Controllers
                 CarImageUrl = car.CarImageUrl,
                 CarPricePerDay = car.CarPricePerDay,
                 TypeId = car.TypeId,
-                Types = this.carService.AllCarsTypes()
+                Types = this.carService.AllCarsTypes(),
+                CarDate = car.CarDate
             };
 
             return View(carModel);
@@ -210,7 +211,7 @@ namespace RentingCars.Controllers
                 return View(carRequestModel);
             }
 
-            this.carService.Edit(id, carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay, carRequestModel.TypeId);
+            this.carService.Edit(id, carRequestModel.CarBrand, carRequestModel.CarModel, carRequestModel.CarDescription, carRequestModel.CarAdditionalInformation, carRequestModel.CarImageUrl, carRequestModel.CarPricePerDay, carRequestModel.TypeId, carRequestModel.CarDate);
 
             TempData["message"] = "You have successfully edited a car!";
 
