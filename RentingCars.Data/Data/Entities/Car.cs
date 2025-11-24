@@ -32,6 +32,8 @@ namespace RentingCars.Data.Data.Entities
         public Broker? Broker { get; set; }
         public string? RenterId { get; set; }
         public ApplicationUser Renter { get; init; }
+        [Required]
+        public DateOnly CarDate { get; set; }
 
     }
 }
