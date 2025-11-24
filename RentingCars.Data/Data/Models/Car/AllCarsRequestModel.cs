@@ -22,6 +22,8 @@ namespace RentingCars.Data.Data.Models.Car
 
         public IEnumerable<CarServiceModel> Cars { get; set; }
                                     = new List<CarServiceModel>();
+        [Required]
+        public DateOnly CarDate { get; init; }
 
     }
 }

@@ -24,6 +24,8 @@ namespace RentingCars.Data.Data.Models.Car
         public IEnumerable<CarTypeServiceModel> Types { get; set; } = new List<CarTypeServiceModel>();
         [Display(Name = "Is Car Rented")]
         public bool isRented { get; init; }
+        [Required]
+        public DateOnly CarDate { get; init; }
 
     }
 }

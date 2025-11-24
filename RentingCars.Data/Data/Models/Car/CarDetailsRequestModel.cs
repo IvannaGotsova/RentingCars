@@ -11,5 +11,7 @@ namespace RentingCars.Data.Data.Models.Car
         public string? CarAdditionalInformation { get; set; }
         public string? CarImageUrl { get; set; }
         public decimal CarPricePerDay { get; set; }
+        [Required]
+        public DateOnly CarDate { get; init; }
     }
 }
