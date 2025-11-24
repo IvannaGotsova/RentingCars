@@ -50,7 +50,7 @@ namespace RentingCars.Core.Services.Cars
                     CarBrand = c.CarBrand,
                     CarDescription = c.CarDescription,
                     CarAdditionalInformation = c.CarAdditionalInformation,
-                    CarImageUrl = c.CarImageUrl
+                    CarImageUrl = c.CarImageUrl,
                 })
                 .Take(3);
         }
@@ -63,7 +63,7 @@ namespace RentingCars.Core.Services.Cars
                 .Any(t => t.Id == typeId);
         }
 
-        public int CreateCar(string CarBrand, string CarModel, string CarDescription, string CarAdditionalInformation, string CarImageURL, decimal CarPricePerDay, int CarTypeId, int CarBrokerId)
+        public int CreateCar(string CarBrand, string CarModel, string CarDescription, string CarAdditionalInformation, string CarImageURL, decimal CarPricePerDay, int CarTypeId, int CarBrokerId, DateOnly CarDate)
         {
             var car = new Car
             {
@@ -74,7 +74,8 @@ namespace RentingCars.Core.Services.Cars
                 CarImageUrl = CarImageURL,
                 CarPricePerDay = CarPricePerDay,
                 TypeId = CarTypeId,
-                BrokerId = CarBrokerId
+                BrokerId = CarBrokerId,
+                CarDate = CarDate
             };
 
             this.rentingCarsDbContextdata.Cars.Add(car);
@@ -131,7 +132,8 @@ namespace RentingCars.Core.Services.Cars
                     CarAdditionalInformation = cr.CarAdditionalInformation,
                     CarImageUrl = cr.CarImageUrl,
                     CarPricePerDay = cr.CarPricePerDay,
-                    isRented = cr.RenterId != null
+                    isRented = cr.RenterId != null,
+                    CarDate = cr.CarDate
                 })
                 .ToList();
 
@@ -188,7 +190,8 @@ namespace RentingCars.Core.Services.Cars
                     CarAdditionalInformation = c.CarAdditionalInformation,
                     CarImageUrl = c.CarImageUrl,
                     CarPricePerDay = c.CarPricePerDay,
-                    isRented = c.RenterId != null
+                    isRented = c.RenterId != null,
+                    CarDate = c.CarDate
                 })
                 .ToList();
 
@@ -220,6 +223,7 @@ namespace RentingCars.Core.Services.Cars
                     CarPricePerDay = c.CarPricePerDay,
                     isRented = c.RenterId != null,
                     TypeName = c.Type.TypeName,
+                    CarDate = c.CarDate,
                     Broker = new BrokerServiceModel()
                     {
                         FullName = this.applicationUserService.ApplicationUserFullName(c.Broker.UserId),
@@ -230,7 +234,7 @@ namespace RentingCars.Core.Services.Cars
                 .FirstOrDefault();
         }
 
-        public void Edit(int carId, string carBrand, string carModel, string carDescription, string carAdditionalInformation, string carImageURL, decimal carPricePerDay, int carTypeId)
+        public void Edit(int carId, string carBrand, string carModel, string carDescription, string carAdditionalInformation, string carImageURL, decimal carPricePerDay, int carTypeId, DateOnly carDate)
         {
             var car = this.rentingCarsDbContextdata
                 .Cars
@@ -243,6 +247,7 @@ namespace RentingCars.Core.Services.Cars
             car.CarImageUrl = carImageURL;
             car.CarPricePerDay = carPricePerDay;
             car.TypeId = carTypeId;
+            car.CarDate = carDate;
 
             this.rentingCarsDbContextdata.SaveChanges();
         }
