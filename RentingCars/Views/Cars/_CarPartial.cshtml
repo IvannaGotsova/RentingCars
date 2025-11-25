@@ -14,6 +14,7 @@
                 Price Per Day:
                 <b>@String.Format("{0:f2}", Model.CarPricePerDay) USD</b>
             </h6>
+            <h6>Date of manufacturing: <b>@Model.CarDate</b></h6>
             <h6>(@(Model.isRented ? "Rented" : "Not Rented"))</h6>
             <br />
             <a class="btn btn-success" asp-area="" asp-controller="Cars" asp-action="Details" asp-route-id="@Model.Id"  
