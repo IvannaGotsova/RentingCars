@@ -4,6 +4,7 @@
     {
         Newest = 0,
         Price = 1,
-        NotRentedFirst = 2
+        NotRentedFirst = 2,
+        NewestDate = 3
     }
 }
