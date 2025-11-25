@@ -1,12 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using RentingCars.Core.Services.ApplicationUsers;
+using RentingCars.Core.Services.Cars;
+using RentingCars.Core.Services.Models.Cars;
 using RentingCars.Data.Data;
 using RentingCars.Data.Data.Entities;
 using RentingCars.Data.Data.Models.Broker;
-using RentingCars.Core.Services.ApplicationUsers;
-using RentingCars.Core.Services.Models.Cars;
-using RentingCars.Core.Services.Cars;
 using RentingCars.Data.Data.Models.Car;
-using AutoMapper;
+using System.Runtime.Intrinsics.Arm;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace RentingCars.Core.Services.Cars
@@ -100,14 +103,18 @@ namespace RentingCars.Core.Services.Cars
 
             if (!string.IsNullOrWhiteSpace(carSearchTerm))
             {
+
+                bool isNumber = int.TryParse(carSearchTerm, out int number);
+
                 carsRequest =
-                    carsRequest
-                    .Where(cr =>
-                    cr.CarBrand.ToLower().Contains(carSearchTerm.ToLower()) ||
-                    cr.CarModel.ToLower().Contains(carSearchTerm.ToLower()) ||
-                    cr.CarDescription.ToLower().Contains(carSearchTerm.ToLower()) ||
-                    cr.CarAdditionalInformation.ToLower().Contains(carSearchTerm.ToLower()));
+                       carsRequest
+                       .Where(cr =>
+                       cr.CarBrand.ToLower().Contains(carSearchTerm.ToLower()) ||
+                       cr.CarModel.ToLower().Contains(carSearchTerm.ToLower()) ||
+                       cr.CarDescription.ToLower().Contains(carSearchTerm.ToLower()) ||
+                       cr.CarAdditionalInformation.ToLower().Contains(carSearchTerm.ToLower()));
             }
+
 
             carsRequest = carSorting switch
             {
@@ -118,6 +125,8 @@ namespace RentingCars.Core.Services.Cars
                 CarSorting.NotRentedFirst => carsRequest
                 .OrderBy(cr => cr.RenterId != null)
                 .ThenByDescending(cr => cr.Id),
+                CarSorting.NewestDate => carsRequest.
+                OrderByDescending(cr => cr.CarDate),
             };
 
             var cars = carsRequest
