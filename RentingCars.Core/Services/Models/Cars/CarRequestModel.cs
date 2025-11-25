@@ -36,5 +36,8 @@ namespace RentingCars.Core.Services.Models.Cars
         public IEnumerable<CarTypeServiceModel> Types { get; set; } = new List<CarTypeServiceModel>();
         [Display(Name = "Is Car Rented")]
         public bool isRented { get; init; }
+        [Required]
+        [Display(Name = "Date of manufacturing")]
+        public DateOnly CarDate { get; init; }
     }
 }
