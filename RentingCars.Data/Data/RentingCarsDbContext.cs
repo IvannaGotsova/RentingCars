@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RentingCars.Data.Data.Entities;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentingCars;
+using RentingCars.Data.Data.Entities;
+using System.Reflection.Emit;
 
 namespace RentingCars.Data.Data
 {
@@ -44,6 +46,15 @@ namespace RentingCars.Data.Data
         private Broker Broker { get; set; } = null!;
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            var dateOnlyConverter = new ValueConverter<DateOnly, DateTime>(
+                d => d.ToDateTime(TimeOnly.MinValue),  
+                d => DateOnly.FromDateTime(d)           
+   );
+
+            builder.Entity<Car>()
+                .Property(c => c.CarDate)
+                .HasConversion(dateOnlyConverter)
+                .HasColumnType("date"); 
 
             builder
                 .Entity<Car>()
@@ -211,7 +222,8 @@ namespace RentingCars.Data.Data
                 CarPricePerDay = 300,
                 TypeId = this.Family.Id,
                 BrokerId = this.Broker.Id,
-                RenterId = this.DemoUser.Id
+                RenterId = this.DemoUser.Id,
+                CarDate = DateOnly.Parse("2022-10-20")
             };
 
             this.StandardCar = new Car()
@@ -224,7 +236,8 @@ namespace RentingCars.Data.Data
                 CarAdditionalInformation = "Standard Car AdditionaInformation ...",
                 CarPricePerDay = 200,
                 TypeId = this.Standard.Id,
-                BrokerId = this.Broker.Id
+                BrokerId = this.Broker.Id,
+                CarDate = DateOnly.Parse("2021-12-11")
             };
 
             this.LuxuryCar = new Car()
@@ -237,7 +250,8 @@ namespace RentingCars.Data.Data
                 CarAdditionalInformation = "Luxury Car AdditionaInformation ...",
                 CarPricePerDay = 500,
                 TypeId = this.Luxury.Id,
-                BrokerId = this.Broker.Id
+                BrokerId = this.Broker.Id,
+                CarDate = DateOnly.Parse("2020-10-10")
             };
         }
     }
