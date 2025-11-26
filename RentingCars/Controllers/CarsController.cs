@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Caching.Memory;
 using RentingCars.Common;
-using RentingCars.Data.Data.Models.Car;
-using RentingCars.Data.Data.Models.Home;
 using RentingCars.Core.Services.Brokers;
 using RentingCars.Core.Services.Cars;
+using RentingCars.Core.Services.Comments;
 using RentingCars.Core.Services.Models.Cars;
-using AutoMapper;
-using Microsoft.Extensions.Caching.Memory;
+using RentingCars.Data.Data.Models.Car;
+using RentingCars.Data.Data.Models.Home;
 using static RentingCars.Areas.Admin.AdminConstants;
 
 namespace RentingCars.Controllers
@@ -18,11 +19,13 @@ namespace RentingCars.Controllers
     {
         private readonly ICarService carService;
         private readonly IBrokerService brokerService;
+        private readonly ICommentService commentService;
         private readonly IMapper mapper;
         private readonly IMemoryCache memoryCache;
 
         public CarsController(ICarService carService, 
                               IBrokerService brokerService,
+                              ICommentService commentService,
                               IMapper mapper,
                               IMemoryCache memoryCache)
         {
@@ -30,6 +33,7 @@ namespace RentingCars.Controllers
             this.brokerService = brokerService;
             this.mapper = mapper;
             this.memoryCache = memoryCache;
+            this.commentService = commentService;
         }
 
         public IActionResult Index()
@@ -323,6 +327,25 @@ namespace RentingCars.Controllers
             TempData["message"] = "You have successfully return a car!";
 
             return RedirectToAction(nameof(Mine));
+        }
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddComment(int carId, string content, string information)
+        {
+            var carModel = this.carService.CarDetailsById(carId);
+
+            information = carModel.GetInformation();
+
+            if (information != carModel.GetInformation())
+            {
+                return BadRequest();
+            }
+
+            commentService.AddComment(carId, content, User.Identity.Name);
+
+            TempData["message"] = "You have successfully added a comment!";
+
+            return RedirectToAction(nameof(Details), new { id = carId , information });
         }
 
 
