@@ -221,6 +221,7 @@ namespace RentingCars.Core.Services.Cars
                 rentingCarsDbContextdata
                 .Cars
                 .Where(c => c.Id == id)
+                .Include(c => c.Comments)
                 .Select(c => new CarDetailsServiceModel()
                 {
                     Id = c.Id, 
@@ -238,7 +239,8 @@ namespace RentingCars.Core.Services.Cars
                         FullName = this.applicationUserService.ApplicationUserFullName(c.Broker.UserId),
                         BrokerPhoneNumber = c.Broker.BrokerPhoneNumber,
                         BrokerEmail = c.Broker.User.Email 
-                    }
+                    },
+                    Comments = c.Comments.ToList()
                 })
                 .FirstOrDefault();
         }
