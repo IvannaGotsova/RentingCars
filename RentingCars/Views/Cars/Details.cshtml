@@ -68,6 +68,30 @@
                     <p class="card-text">Phone Number: @Model.Broker.BrokerPhoneNumber</p>
                 </div>
             </div>
+            <div>
+                <h3>Comments</h3>
+                <ul>
+                    @foreach (var comment in Model.Comments)
+                    {
+                        <li>
+                            <strong>@comment.UserName</strong> (@comment.CreatedAt):
+                            @comment.Content
+                        </li>
+                    }
+                </ul>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <h3>Add a Comment</h3>
+                    @using (Html.BeginForm("AddComment", "Cars"))
+                    {
+                        @Html.Hidden("carId", Model.Id)
+                        <textarea name="content"></textarea>
+
+                        <br />
+                        <input type="submit" value="Submit Comment" />
+                    }
+                }
+            </div>
         </div>
     </div>
 </div>
