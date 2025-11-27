@@ -35,6 +35,8 @@ namespace RentingCars.Data.Data.Entities
         [Required]
         public DateOnly CarDate { get; set; }
 
+        public virtual ICollection<Comment> Comments { get; set; }
+
     }
 }
 
