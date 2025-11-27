@@ -32,6 +32,7 @@ namespace RentingCars.Data.Data
         public DbSet<Broker>? Brokers { get; init; } = null!;
         public DbSet<Car>? Cars { get; init; } = null!;
         public DbSet<Entities.Type>? Types { get; init; } = null!;
+        public DbSet<Comment> Comments { get; set; }
 
         private ApplicationUser AdminUser { get; set; } = null!;
         private ApplicationUser BrokerUser { get; set; } = null!;
