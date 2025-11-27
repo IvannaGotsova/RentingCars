@@ -1,17 +1,18 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using RentingCars.Common;
-using RentingCars.Data.Data;
-using RentingCars.Data.Data.Entities;
+using RentingCars.Controllers;
+using RentingCars.Core.Services.ApplicationUsers;
 using RentingCars.Core.Services.Brokers;
 using RentingCars.Core.Services.Cars;
-using RentingCars.Core.Services.Statistics;
-using RentingCars.Core.Services.ApplicationUsers;
-using RentingCars.Controllers;
-using Microsoft.AspNetCore.Builder;
+using RentingCars.Core.Services.Comments;
 using RentingCars.Core.Services.Rents;
+using RentingCars.Core.Services.Statistics;
+using RentingCars.Data.Data;
+using RentingCars.Data.Data.Entities;
 
 namespace RentingCars
 {
@@ -50,6 +51,7 @@ namespace RentingCars
             builder.Services.AddScoped<IStatisticsService, StatisticsService>();
             builder.Services.AddScoped<IRentService, RentService>();
             builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            builder.Services.AddScoped<ICommentService, CommentService>();
 
             builder.Services.AddAutoMapper(
                 typeof(ICarService).Assembly,
