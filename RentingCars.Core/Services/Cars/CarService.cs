@@ -87,7 +87,7 @@ namespace RentingCars.Core.Services.Cars
             return car.Id;
         }
 
-        public CarRequestServiceModel All(string carType = null, string carSearchTerm = null, CarSorting carSorting = CarSorting.Newest, int currentPage = 1, int carsPerPage = 1)
+        public CarRequestServiceModel All(string carType = null, string carSearchTerm = null, CarSorting carSorting = CarSorting.NewestAdded, int currentPage = 1, int carsPerPage = 1)
         {
             var carsRequest = this.rentingCarsDbContextdata
                 .Cars
@@ -118,15 +118,24 @@ namespace RentingCars.Core.Services.Cars
 
             carsRequest = carSorting switch
             {
-                CarSorting.Newest => carsRequest
+                CarSorting.NewestAdded => carsRequest
                 .OrderByDescending(cr => cr.Id),
-                CarSorting.Price => carsRequest
+                CarSorting.OldestAdded => carsRequest
+                .OrderBy(cr => cr.Id),
+                CarSorting.LowestPrice => carsRequest
                 .OrderBy(cr => cr.CarPricePerDay),
+                CarSorting.HighestPrice => carsRequest
+                .OrderByDescending(cr => cr.CarPricePerDay),
                 CarSorting.NotRentedFirst => carsRequest
                 .OrderBy(cr => cr.RenterId != null)
                 .ThenByDescending(cr => cr.Id),
+                CarSorting.RentedFirst => carsRequest
+                .OrderBy(cr => cr.RenterId == null),
                 CarSorting.NewestDate => carsRequest.
                 OrderByDescending(cr => cr.CarDate),
+                CarSorting.OldestDate => carsRequest.
+                OrderBy(cr => cr.CarDate),
+
             };
 
             var cars = carsRequest
